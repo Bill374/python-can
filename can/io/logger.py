@@ -14,6 +14,7 @@ from ..message import Message
 from ..listener import Listener
 from .generic import BaseIOHandler, FileIOMessageWriter
 from .asc import ASCWriter
+from .n2k import N2KWriter
 from .blf import BLFWriter
 from .canutils import CanutilsLogWriter
 from .csv import CSVWriter
@@ -32,6 +33,7 @@ class Logger(BaseIOHandler, Listener):  # pylint: disable=abstract-method
       * .db: :class:`can.SqliteWriter`
       * .log :class:`can.CanutilsLogWriter`
       * .txt :class:`can.Printer`
+      * .n2k :class:`can.N2KWriter`
 
     The **filename** may also be *None*, to fall back to :class:`can.Printer`.
 
@@ -50,6 +52,7 @@ class Logger(BaseIOHandler, Listener):  # pylint: disable=abstract-method
         ".db": SqliteWriter,
         ".log": CanutilsLogWriter,
         ".txt": Printer,
+        ".n2k": N2KWriter,
     }
 
     @staticmethod
@@ -115,6 +118,7 @@ class BaseRotatingLogger(Listener, ABC):
         ".csv": CSVWriter,
         ".log": CanutilsLogWriter,
         ".txt": Printer,
+        ".n2k": N2KWriter,
     }
     namer: Optional[Callable] = None
     rotator: Optional[Callable] = None
@@ -256,6 +260,7 @@ class SizedRotatingLogger(BaseRotatingLogger):
       * .csv: :class:`can.CSVWriter`
       * .log :class:`can.CanutilsLogWriter`
       * .txt :class:`can.Printer`
+      * .n2k :class:`can.N2KWriter`
 
     The log files may be incomplete until `stop()` is called due to buffering.
     """
